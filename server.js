@@ -11,12 +11,12 @@ app.get('/', function (req, res, next) {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
 
-app.get(/* Route path goes here */, function (request, response) {
+app.get('/products', function (request, response) {
 
-  var lat = req.query.latitude;
-  var lng = req.query.longitude;
+var lat = request.query.latitude;
+var lng = request.query.longitude;
 
-  response.json(api.getProducts(lat, lng));
+response.json(api.getProducts(lat, lng));
 });
 
 
