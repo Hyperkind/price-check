@@ -1,3 +1,11 @@
+var myLocation = {
+  latitude: 21.301424,
+  longitude: -157.850658
+};
+
+var products = getProducts(myLocation);
+renderProducts(products);
+
 /**
  * Returns the device's current location.
  * @return {object} The device's current location
@@ -30,11 +38,32 @@ function getProductsByLocation (lat, lng) {
  * @param  {object} The location object to query
  * @return {[Product]]} An array of products
  */
-function getProducts (location) {
-  return $.ajax({
+
+function renderProducts (products) {
+  console.log(Array.isArray(products));
+   newDiv = document.getElementById("div1")
+   // products.sort();
+
+  for (var i = products.length - 1; i >= 0; i--) {
+    var newElem = document.createElement('p');
+    newElem.innerText = products[i].display_name + ' ' + products[i].capacity;
+    newDiv.appendChild(newElem);
+    console.log(products[i]);
+
+  };
+
+};
+
+function getProducts (locationObject) {
+
+  var response = $.ajax({
     type: "GET",
-    data: location,
-    url: /* Backend URL */,
+    data: locationObject,
+    url: '/products',
     async: false
   });
+
+console.log(response.responseJSON.products);
+return response.responseJSON.products;
+
 }
